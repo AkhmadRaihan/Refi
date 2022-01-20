@@ -73,7 +73,7 @@ class PembelianController extends Controller
      * @param  \App\pembelian  $pembelian
      * @return \Illuminate\Http\Response
      */
-    public function edit(pembelian $id)
+    public function edit($id)
     {
         $barang = pembelian::findOrFail($id);
         return view('stok_barang.edit',compact('barang'));
@@ -115,10 +115,10 @@ class PembelianController extends Controller
      * @param  \App\pembelian  $pembelian
      * @return \Illuminate\Http\Response
      */
-    public function destroy(pembelian $id)
+    public function destroy($id)
     {
         $barang = pembelian::findOrFail($id);
         $barang->delete();
-        return redirect()->route('stok_barang.index');
+        return redirect()->route('pembelian.index');
     }
 }

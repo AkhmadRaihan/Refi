@@ -73,7 +73,7 @@ class PenjualanController extends Controller
      * @param  \App\penjualan  $penjualan
      * @return \Illuminate\Http\Response
      */
-    public function edit(penjualan $id)
+    public function edit($id)
     {
         $barang = penjualan::findOrFail($id);
         return view('stok_barang.edit',compact('barang'));
@@ -115,10 +115,10 @@ class PenjualanController extends Controller
      * @param  \App\penjualan  $penjualan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(penjualan $id)
+    public function destroy($id)
     {
         $barang = penjualan::findOrFail($id);
         $barang->delete();
-        return redirect()->route('stok_barang.index');
+        return redirect()->route('penjualan.index');
     }
 }

@@ -107,7 +107,7 @@ class StokBarangController extends Controller
      * @param  \App\stok_barang  $stok_barang
      * @return \Illuminate\Http\Response
      */
-    public function destroy(stok_barang $id)
+    public function destroy($id)
     {
         $barang = stok_barang::findOrFail($id);
         $barang->delete();
