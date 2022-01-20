@@ -14,7 +14,8 @@ class PenjualanController extends Controller
      */
     public function index()
     {
-        //
+        $barang = penjualan::all();
+        return view('penjualan.index',compact('barang'));
     }
 
     /**
@@ -24,7 +25,7 @@ class PenjualanController extends Controller
      */
     public function create()
     {
-        //
+        return view('penjualan.create');
     }
 
     /**
@@ -35,7 +36,24 @@ class PenjualanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'barang_id' => 'required',
+            'nama_barang' => 'required',
+            'jenis_barang' => 'required',
+            'jumlah_barang' => 'required',
+            'harga_barang' => 'required',
+            'total_harga' => 'required'
+        ]);
+
+        $barang = new penjualan;
+        $barang->barang_id = $request->barang_id;
+        $barang->namabarang = $request->nama_barang;
+        $barang->jenis_barang = $request->jenis_barang;
+        $barang->jumlah_barang = $request->jumlah_barang;
+        $barang->harga_barang = $request->harga_barang;
+        $barang->total_harga = $request->total_harga;
+        $barang->save();
+        return redirect()->route('penjualan.index')->with('success', 'Data Berhasil Disimpan');
     }
 
     /**
@@ -55,9 +73,10 @@ class PenjualanController extends Controller
      * @param  \App\penjualan  $penjualan
      * @return \Illuminate\Http\Response
      */
-    public function edit(penjualan $penjualan)
+    public function edit(penjualan $id)
     {
-        //
+        $barang = penjualan::findOrFail($id);
+        return view('stok_barang.edit',compact('barang'));
     }
 
     /**
@@ -67,9 +86,27 @@ class PenjualanController extends Controller
      * @param  \App\penjualan  $penjualan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, penjualan $penjualan)
+    public function update(Request $request,  $id)
     {
-        //
+        $request->validate([
+            'id' => 'required' ,
+            'barang_id' => 'required',
+            'nama_barang' => 'required',
+            'jenis_barang' => 'required',
+            'jumlah_barang' => 'required',
+            'harga_barang' => 'required',
+            'total_harga' => 'required'
+        ]);
+        
+        $barang = penjualan::findorFail($id);
+        $barang->barang_id = $request->barang_id;
+        $barang->nama_barang = $request->nama_barang;
+        $barang->jenis_barang = $request->jenis_barang;
+        $barang->jumlah_barang = $request->jumlah_barang;
+        $barang->harga_barang = $request->harga_barang;
+        $barang->total_harga = $request->total_harga;
+        $barang->save();
+        return redirect()->route('penjualan.index')->with('success', 'Data Berhasil Disimpan');
     }
 
     /**
@@ -78,8 +115,10 @@ class PenjualanController extends Controller
      * @param  \App\penjualan  $penjualan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(penjualan $penjualan)
+    public function destroy(penjualan $id)
     {
-        //
+        $barang = penjualan::findOrFail($id);
+        $barang->delete();
+        return redirect()->route('stok_barang.index');
     }
 }

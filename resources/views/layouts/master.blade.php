@@ -9,7 +9,7 @@
 
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-<a class="navbar-brand" href="#">Cloud Vapor</a>
+<a class="navbar-brand" href="#">Refi Besi</a>
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 <span class="navbar-toggler-icon"></span>
 </button>
@@ -19,16 +19,11 @@
 			<a class="nav-link" href="{{route('stok_barang.index')}}">Stok Barang <span class="sr-only">(current)</span></a>
 		</li>
 		<li class="nav-item active">
-			<a class="nav-link" href="">Barang Keluar <span class="sr-only">(current)</span></a>
+			<a class="nav-link" href="{{route('pembelian.index')}}">Pembelian<span class="sr-only">(current)</span></a>
 		</li>
-		<!-- <li class="nav-item dropdown">
-			<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">Person</a>
-			<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-				<a class="dropdown-item" href="{{url('person')}}">Index</a>
-				<a class="dropdown-item" href="{{url('person/send-data')}}">Send Data</a>
-				<a class="dropdown-item" href="{{url('person/data')}}">Data</a>
-			</div>
-		</li> -->
+		<li class="nav-item active">
+			<a class="nav-link" href="{{route('penjualan.index')}}">Penjualan<span class="sr-only">(current)</span></a>
+		</li>
 	</ul>
 </div>
 </nav>

@@ -14,7 +14,8 @@ class PembelianController extends Controller
      */
     public function index()
     {
-        //
+        $barang = pembelian::all();
+        return view('pembelian.index',compact('barang'));
     }
 
     /**
@@ -24,7 +25,7 @@ class PembelianController extends Controller
      */
     public function create()
     {
-        //
+        return view('pembelian.create');
     }
 
     /**
@@ -35,7 +36,24 @@ class PembelianController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'barang_id' => 'required',
+            'nama_barang' => 'required',
+            'jenis_barang' => 'required',
+            'jumlah_barang' => 'required',
+            'harga_barang' => 'required',
+            'total_harga' => 'required'
+        ]);
+
+        $barang = new pembelian;
+        $barang->barang_id = $request->barang_id;
+        $barang->namabarang = $request->nama_barang;
+        $barang->jenis_barang = $request->jenis_barang;
+        $barang->jumlah_barang = $request->jumlah_barang;
+        $barang->harga_barang = $request->harga_barang;
+        $barang->total_harga = $request->total_harga;
+        $barang->save();
+        return redirect()->route('pembelian.index')->with('success', 'Data Berhasil Disimpan');
     }
 
     /**
@@ -55,9 +73,10 @@ class PembelianController extends Controller
      * @param  \App\pembelian  $pembelian
      * @return \Illuminate\Http\Response
      */
-    public function edit(pembelian $pembelian)
+    public function edit(pembelian $id)
     {
-        //
+        $barang = pembelian::findOrFail($id);
+        return view('stok_barang.edit',compact('barang'));
     }
 
     /**
@@ -67,9 +86,27 @@ class PembelianController extends Controller
      * @param  \App\pembelian  $pembelian
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, pembelian $pembelian)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'id' => 'required' ,
+            'barang_id' => 'required',
+            'nama_barang' => 'required',
+            'jenis_barang' => 'required',
+            'jumlah_barang' => 'required',
+            'harga_barang' => 'required',
+            'total_harga' => 'required'
+        ]);
+        
+        $barang = pembelian::findorFail($id);
+        $barang->barang_id = $request->barang_id;
+        $barang->nama_barang = $request->nama_barang;
+        $barang->jenis_barang = $request->jenis_barang;
+        $barang->jumlah_barang = $request->jumlah_barang;
+        $barang->harga_barang = $request->harga_barang;
+        $barang->total_harga = $request->total_harga;
+        $barang->save();
+        return redirect()->route('pembelian.index')->with('success', 'Data Berhasil Disimpan');
     }
 
     /**
@@ -78,8 +115,10 @@ class PembelianController extends Controller
      * @param  \App\pembelian  $pembelian
      * @return \Illuminate\Http\Response
      */
-    public function destroy(pembelian $pembelian)
+    public function destroy(pembelian $id)
     {
-        //
+        $barang = pembelian::findOrFail($id);
+        $barang->delete();
+        return redirect()->route('stok_barang.index');
     }
 }
