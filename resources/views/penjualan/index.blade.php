@@ -32,19 +32,19 @@
                                             </thead>
                                             <tbody>
                                                 @php $no = 1; @endphp
-                                                @foreach($barang as $barangs)
+                                                @foreach($penjualan as $penjualans)
                                                 <tr>
                                                     <td>{{ $no++ }}</td>
-                                                    <td>{{$barangs->barang_id}}</td>
-                                                    <td>{{$barangs->namabarang}}</td>
-                                                    <td>{{$barangs->jenis_barang}}</td>
-                                                    <td>{{$barangs->jumlah_barang}}</td>
-                                                    <td>{{$barangs->harga_barang}}</td>
-                                                    <td>{{$barangs->total_harga}}</td>
+                                                    <td>{{$penjualans->barang_id}}</td>
+                                                    <td>{{$penjualans->namabarang}}</td>
+                                                    <td>{{$penjualans->jenis_barang}}</td>
+                                                    <td>{{$penjualans->jumlah_barang}}</td>
+                                                    <td>{{$penjualans->harga_barang}}</td>
+                                                    <td>{{$penjualans->total_harga}}</td>
                                                     <td>
-                                                    <form action="{{ route('penjualan.destroy', $barangs->id) }}"method="POST">
+                                                    <form action="{{ route('penjualan.destroy', $penjualans->id) }}"method="POST">
                                                         @csrf @method('delete')
-                                                        <a href="{{ route('penjualan.edit',$barangs->id) }}" class="btn btn-primary">Edit</a>
+                                                        <a href="{{ route('penjualan.edit',$penjualans->id) }}" class="btn btn-primary">Edit</a>
                                                         <button type="submit" class="btn btn-danger" onclick="return confirm('Ingin Menghapus Data?')">Delete</button>
                                                     </form>
                                                     </td>

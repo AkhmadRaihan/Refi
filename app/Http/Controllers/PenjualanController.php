@@ -14,8 +14,8 @@ class PenjualanController extends Controller
      */
     public function index()
     {
-        $barang = penjualan::all();
-        return view('penjualan.index',compact('barang'));
+        $penjualan = penjualan::all();
+        return view('penjualan.index',compact('penjualan'));
     }
 
     /**
@@ -45,14 +45,14 @@ class PenjualanController extends Controller
             'total_harga' => 'required'
         ]);
 
-        $barang = new penjualan;
-        $barang->barang_id = $request->barang_id;
-        $barang->namabarang = $request->nama_barang;
-        $barang->jenis_barang = $request->jenis_barang;
-        $barang->jumlah_barang = $request->jumlah_barang;
-        $barang->harga_barang = $request->harga_barang;
-        $barang->total_harga = $request->total_harga;
-        $barang->save();
+        $penjualan = new penjualan;
+        $penjualan->barang_id = $request->barang_id;
+        $penjualan->namabarang = $request->nama_barang;
+        $penjualan->jenis_barang = $request->jenis_barang;
+        $penjualan->jumlah_barang = $request->jumlah_barang;
+        $penjualan->harga_barang = $request->harga_barang;
+        $penjualan->total_harga = $request->total_harga;
+        $penjualan->save();
         return redirect()->route('penjualan.index')->with('success', 'Data Berhasil Disimpan');
     }
 
@@ -75,7 +75,7 @@ class PenjualanController extends Controller
      */
     public function edit($id)
     {
-        $barang = penjualan::findOrFail($id);
+        $penjualan = penjualan::findOrFail($id);
         return view('stok_barang.edit',compact('barang'));
     }
 
@@ -98,14 +98,14 @@ class PenjualanController extends Controller
             'total_harga' => 'required'
         ]);
         
-        $barang = penjualan::findorFail($id);
-        $barang->barang_id = $request->barang_id;
-        $barang->nama_barang = $request->nama_barang;
-        $barang->jenis_barang = $request->jenis_barang;
-        $barang->jumlah_barang = $request->jumlah_barang;
-        $barang->harga_barang = $request->harga_barang;
-        $barang->total_harga = $request->total_harga;
-        $barang->save();
+        $penjualan = penjualan::findorFail($id);
+        $penjualan->barang_id = $request->barang_id;
+        $penjualan->nama_barang = $request->nama_barang;
+        $penjualan->jenis_barang = $request->jenis_barang;
+        $penjualan->jumlah_barang = $request->jumlah_barang;
+        $penjualan->harga_barang = $request->harga_barang;
+        $penjualan->total_harga = $request->total_harga;
+        $penjualan->save();
         return redirect()->route('penjualan.index')->with('success', 'Data Berhasil Disimpan');
     }
 
@@ -117,8 +117,8 @@ class PenjualanController extends Controller
      */
     public function destroy($id)
     {
-        $barang = penjualan::findOrFail($id);
-        $barang->delete();
+        $penjualan = penjualan::findOrFail($id);
+        $penjualan->delete();
         return redirect()->route('penjualan.index');
     }
 }

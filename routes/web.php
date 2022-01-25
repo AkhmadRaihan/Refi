@@ -18,5 +18,5 @@ Route::get('/', function () {
 });
 
 Route::resource('stok_barang','StokBarangController');
-Route::resource('pembelian','PembelianController');
-Route::resource('penjualan','PenjualanController');
+Route::resource('barangpembelian','PembelianController');
+Route::resource('barangpenjualan','PenjualanController');

@@ -11,7 +11,7 @@
             <div class="card-body">
                 <div class="card">
                     <div class="card-header">Data Pembelian
-                        <a href="{{ route('pembelian.create') }}" class="float-right btn btn-success btn-floating"> Tambah Data</a>
+                        <a href="{{ route('barangpembelian.create') }}" class="float-right btn btn-success btn-floating"> Tambah Data</a>
                     </div>
                         <div class="row">
                              <div class="col-md-12">
@@ -32,19 +32,19 @@
                                             </thead>
                                             <tbody>
                                                 @php $no = 1; @endphp
-                                                @foreach($barang as $barangs)
+                                                @foreach($pembelian as $pembelians)
                                                 <tr>
                                                     <td>{{ $no++ }}</td>
-                                                    <td>{{$barangs->barang_id}}</td>
-                                                    <td>{{$barangs->namabarang}}</td>
-                                                    <td>{{$barangs->jenis_barang}}</td>
-                                                    <td>{{$barangs->jumlah_barang}}</td>
-                                                    <td>{{$barangs->harga_barang}}</td>
-                                                    <td>{{$barangs->total_harga}}</td>
+                                                    <td>{{$pembelians->barang_id}}</td>
+                                                    <td>{{$pembelians->namabarang}}</td>
+                                                    <td>{{$pembelians->jenis_barang}}</td>
+                                                    <td>{{$pembelians->jumlah_barang}}</td>
+                                                    <td>{{$pembelians->harga_barang}}</td>
+                                                    <td>{{$pembelians->total_harga}}</td>
                                                     <td>
-                                                    <form action="{{ route('pembelian.destroy', $barangs->id) }}"method="POST">
+                                                    <form action="{{ route('pembelian.destroy', $pembelians->id) }}"method="POST">
                                                         @csrf @method('delete')
-                                                        <a href="{{ route('pembelian.edit',$barangs->id) }}" class="btn btn-primary">Edit</a>
+                                                        <a href="{{ route('pembelian.edit',$pembelians->id) }}" class="btn btn-primary">Edit</a>
                                                         <button type="submit" class="btn btn-danger" onclick="return confirm('Ingin Menghapus Data?')">Delete</button>
                                                     </form>
                                                     </td>

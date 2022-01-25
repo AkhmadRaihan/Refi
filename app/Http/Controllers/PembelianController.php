@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\pembelian;
+use App\stok_barang;
 use Illuminate\Http\Request;
 
 class PembelianController extends Controller
@@ -14,8 +15,8 @@ class PembelianController extends Controller
      */
     public function index()
     {
-        $barang = pembelian::all();
-        return view('pembelian.index',compact('barang'));
+        $pembelian = pembelian::with('barang')->get();
+        return view('pembelian.index',compact('pembelian'));
     }
 
     /**
@@ -25,7 +26,9 @@ class PembelianController extends Controller
      */
     public function create()
     {
-        return view('pembelian.create');
+        $pembelian = pembelian::all();
+        $barang = stok_barang::all();
+        return view('pembelian.create',compact('pembelian','barang'));
     }
 
     /**
@@ -37,7 +40,6 @@ class PembelianController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'barang_id' => 'required',
             'nama_barang' => 'required',
             'jenis_barang' => 'required',
             'jumlah_barang' => 'required',
@@ -45,15 +47,15 @@ class PembelianController extends Controller
             'total_harga' => 'required'
         ]);
 
-        $barang = new pembelian;
-        $barang->barang_id = $request->barang_id;
-        $barang->namabarang = $request->nama_barang;
-        $barang->jenis_barang = $request->jenis_barang;
-        $barang->jumlah_barang = $request->jumlah_barang;
-        $barang->harga_barang = $request->harga_barang;
-        $barang->total_harga = $request->total_harga;
-        $barang->save();
-        return redirect()->route('pembelian.index')->with('success', 'Data Berhasil Disimpan');
+        $pembelian = new pembelian;
+        $barang = stok_barang::where(['id' => $request['barang_id']])->first();
+        $pembelian->namabarang = $request->nama_barang;
+        $pembelian->jenis_barang = $request->jenis_barang;
+        $pembelian->jumlah_barang = $request->jumlah_barang;
+        $pembelian->harga_barang = $request->harga_barang;
+        $pembelian->total_harga = $request->total_harga;
+        $pembelian->save();
+        return redirect()->route('barangpembelian.index')->with('success', 'Data Berhasil Disimpan');
     }
 
     /**
@@ -75,7 +77,7 @@ class PembelianController extends Controller
      */
     public function edit($id)
     {
-        $barang = pembelian::findOrFail($id);
+        $pembelian = pembelian::findOrFail($id);
         return view('stok_barang.edit',compact('barang'));
     }
 
@@ -98,14 +100,14 @@ class PembelianController extends Controller
             'total_harga' => 'required'
         ]);
         
-        $barang = pembelian::findorFail($id);
-        $barang->barang_id = $request->barang_id;
-        $barang->nama_barang = $request->nama_barang;
-        $barang->jenis_barang = $request->jenis_barang;
-        $barang->jumlah_barang = $request->jumlah_barang;
-        $barang->harga_barang = $request->harga_barang;
-        $barang->total_harga = $request->total_harga;
-        $barang->save();
+        $pembelian = pembelian::findorFail($id);
+        $pembelian->barang_id = $request->barang_id;
+        $pembelian->nama_barang = $request->nama_barang;
+        $pembelian->jenis_barang = $request->jenis_barang;
+        $pembelian->jumlah_barang = $request->jumlah_barang;
+        $pembelian->harga_barang = $request->harga_barang;
+        $pembelian->total_harga = $request->total_harga;
+        $pembelian->save();
         return redirect()->route('pembelian.index')->with('success', 'Data Berhasil Disimpan');
     }
 
@@ -117,8 +119,8 @@ class PembelianController extends Controller
      */
     public function destroy($id)
     {
-        $barang = pembelian::findOrFail($id);
-        $barang->delete();
+        $pembelian = pembelian::findOrFail($id);
+        $pembelian->delete();
         return redirect()->route('pembelian.index');
     }
 }

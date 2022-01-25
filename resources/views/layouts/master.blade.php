@@ -19,10 +19,10 @@
 			<a class="nav-link" href="{{route('stok_barang.index')}}">Stok Barang <span class="sr-only">(current)</span></a>
 		</li>
 		<li class="nav-item active">
-			<a class="nav-link" href="{{route('pembelian.index')}}">Pembelian<span class="sr-only">(current)</span></a>
+			<a class="nav-link" href="{{route('barangpembelian.index')}}">Pembelian<span class="sr-only">(current)</span></a>
 		</li>
 		<li class="nav-item active">
-			<a class="nav-link" href="{{route('penjualan.index')}}">Penjualan<span class="sr-only">(current)</span></a>
+			<a class="nav-link" href="{{route('barangpenjualan.index')}}">Penjualan<span class="sr-only">(current)</span></a>
 		</li>
 	</ul>
 </div>
