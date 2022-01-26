@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\penjualan;
+use App\stok_barang;
 use Illuminate\Http\Request;
 
 class PenjualanController extends Controller
@@ -25,7 +26,8 @@ class PenjualanController extends Controller
      */
     public function create()
     {
-        return view('penjualan.create');
+        $barang = stok_barang::all();
+        return view('penjualan.create', compact('barang'));
     }
 
     /**
@@ -37,23 +39,29 @@ class PenjualanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'barang_id' => 'required',
-            'nama_barang' => 'required',
             'jenis_barang' => 'required',
             'jumlah_barang' => 'required',
             'harga_barang' => 'required',
-            'total_harga' => 'required'
+            'Tanggal_penjualan' => 'required',
+            'barang_id' => 'required'
         ]);
 
+        $barang = stok_barang::where(['id' => $request['barang_id']])->first();
+        if($barang){
+            $stock = $barang->stok - (int) $request->jumlah_barang;
+            $barang->update(['stok' => $stock]);
+        }
+
         $penjualan = new penjualan;
-        $penjualan->barang_id = $request->barang_id;
-        $penjualan->namabarang = $request->nama_barang;
+        $barang = stok_barang::where(['id' => $request['barang_id']])->first();
         $penjualan->jenis_barang = $request->jenis_barang;
         $penjualan->jumlah_barang = $request->jumlah_barang;
         $penjualan->harga_barang = $request->harga_barang;
-        $penjualan->total_harga = $request->total_harga;
+        $penjualan->total_harga = ($penjualan->jumlah_barang * $penjualan->harga_barang);
+        $penjualan->Tanggal_penjualan = $request->Tanggal_penjualan;
+        $penjualan->barang_id = $request->barang_id;
         $penjualan->save();
-        return redirect()->route('penjualan.index')->with('success', 'Data Berhasil Disimpan');
+        return redirect()->route('barangpenjualan.index')->with('success', 'Data Berhasil Disimpan');
     }
 
     /**
@@ -76,7 +84,7 @@ class PenjualanController extends Controller
     public function edit($id)
     {
         $penjualan = penjualan::findOrFail($id);
-        return view('stok_barang.edit',compact('barang'));
+        return view('penjualan.edit',compact('penjualan'));
     }
 
     /**

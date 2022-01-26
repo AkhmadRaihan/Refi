@@ -22,12 +22,10 @@
                                                 <tr>
                                                     <th>No</th>
                                                     <th>Id Barang</th>
-                                                    <th>Nama Barang</th>
                                                     <th>Jenis Barang</th>
                                                     <th>Jumlah Barang</th>
                                                     <th>Harga Barang</th>
                                                     <th>Total Harga</th>
-                                                    <th>action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -35,19 +33,11 @@
                                                 @foreach($pembelian as $pembelians)
                                                 <tr>
                                                     <td>{{ $no++ }}</td>
-                                                    <td>{{$pembelians->barang_id}}</td>
-                                                    <td>{{$pembelians->namabarang}}</td>
+                                                    <td>{{$pembelians->stok_barang->nama_barang}}</td>
                                                     <td>{{$pembelians->jenis_barang}}</td>
                                                     <td>{{$pembelians->jumlah_barang}}</td>
                                                     <td>{{$pembelians->harga_barang}}</td>
                                                     <td>{{$pembelians->total_harga}}</td>
-                                                    <td>
-                                                    <form action="{{ route('pembelian.destroy', $pembelians->id) }}"method="POST">
-                                                        @csrf @method('delete')
-                                                        <a href="{{ route('pembelian.edit',$pembelians->id) }}" class="btn btn-primary">Edit</a>
-                                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Ingin Menghapus Data?')">Delete</button>
-                                                    </form>
-                                                    </td>
                                                 </tr>
                                                 @endforeach
                                             </tbody>

@@ -85,7 +85,6 @@ class StokBarangController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'id' => 'required' ,
             'nama_barang' => 'required',
             'jenis_barang' => 'required',
             'harga_barang' => 'required',

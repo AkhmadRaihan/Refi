@@ -15,7 +15,7 @@ class PembelianController extends Controller
      */
     public function index()
     {
-        $pembelian = pembelian::with('barang')->get();
+        $pembelian = pembelian::all();
         return view('pembelian.index',compact('pembelian'));
     }
 
@@ -40,20 +40,26 @@ class PembelianController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_barang' => 'required',
             'jenis_barang' => 'required',
             'jumlah_barang' => 'required',
             'harga_barang' => 'required',
-            'total_harga' => 'required'
+            'Tanggal_pembelian' => 'required',
+            'barang_id' => 'required'
         ]);
+        $barang = stok_barang::where(['id' => $request['barang_id']])->first();
+        if($barang){
+            $stock = $barang->stok + (int) $request->jumlah_barang;
+            $barang->update(['stok' => $stock]);
+        }
 
         $pembelian = new pembelian;
         $barang = stok_barang::where(['id' => $request['barang_id']])->first();
-        $pembelian->namabarang = $request->nama_barang;
         $pembelian->jenis_barang = $request->jenis_barang;
         $pembelian->jumlah_barang = $request->jumlah_barang;
         $pembelian->harga_barang = $request->harga_barang;
-        $pembelian->total_harga = $request->total_harga;
+        $pembelian->total_harga = ($pembelian->jumlah_barang * $pembelian->harga_barang);
+        $pembelian->Tanggal_pembelian = $request->Tanggal_pembelian;
+        $pembelian->barang_id = $request->barang_id;
         $pembelian->save();
         return redirect()->route('barangpembelian.index')->with('success', 'Data Berhasil Disimpan');
     }

@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class penjualan extends Model
 {
     protected $table = 'penjualans';
-    protected $fillable = array('namabarang','jenis_barang','jumlah_barang','barang_id');
+    protected $fillable = array('jenis_barang','jumlah_barang','barang_id','harga_barang','Tanggal_penjualan');
 
-    public function barang() {
-        return $this->belongsTo('App\barang', 'barang_id', 'id');
+    public function stok_barang() {
+        return $this->belongsTo('App\stok_barang', 'barang_id', 'id');
     }
 }
