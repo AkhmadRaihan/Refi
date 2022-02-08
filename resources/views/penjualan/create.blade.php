@@ -52,6 +52,15 @@
                           </span>
                       @endif
                     </div>
+                    <div class="form-group {{ $errors->has('diskon') ? ' has-error' : '' }}">
+                      <label class="control-label">Diskon Harga</label>	
+                      <input type="number" name="diskon" class="form-control"  required>
+                      @if ($errors->has('diskon'))
+                      <span class="help-block">
+                          <strong>{{ $errors->first('diskon') }}</strong>
+                      </span>
+                    @endif
+                    </div>
                       <div class="form-group {{ $errors->has('Tanggal_penjualan') ? ' has-error' : '' }}">
                         <label class="control-label">Tanggal</label>	
                         <input type="date" name="Tanggal_penjualan" class="form-control"  required>

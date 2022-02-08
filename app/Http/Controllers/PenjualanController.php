@@ -42,6 +42,7 @@ class PenjualanController extends Controller
             'jenis_barang' => 'required',
             'jumlah_barang' => 'required',
             'harga_barang' => 'required',
+            'diskon' => 'required',
             'Tanggal_penjualan' => 'required',
             'barang_id' => 'required'
         ]);
@@ -57,7 +58,8 @@ class PenjualanController extends Controller
         $penjualan->jenis_barang = $request->jenis_barang;
         $penjualan->jumlah_barang = $request->jumlah_barang;
         $penjualan->harga_barang = $request->harga_barang;
-        $penjualan->total_harga = ($penjualan->jumlah_barang * $penjualan->harga_barang);
+        $penjualan->diskon = $request->diskon;
+        $penjualan->total_harga = (($penjualan->jumlah_barang * $penjualan->harga_barang) - $penjualan->diskon);
         $penjualan->Tanggal_penjualan = $request->Tanggal_penjualan;
         $penjualan->barang_id = $request->barang_id;
         $penjualan->save();
@@ -103,6 +105,7 @@ class PenjualanController extends Controller
             'jenis_barang' => 'required',
             'jumlah_barang' => 'required',
             'harga_barang' => 'required',
+            'diskon' => 'required',
             'total_harga' => 'required'
         ]);
         
@@ -112,6 +115,7 @@ class PenjualanController extends Controller
         $penjualan->jenis_barang = $request->jenis_barang;
         $penjualan->jumlah_barang = $request->jumlah_barang;
         $penjualan->harga_barang = $request->harga_barang;
+        $penjualan->diskon = $request->diskon;
         $penjualan->total_harga = $request->total_harga;
         $penjualan->save();
         return redirect()->route('penjualan.index')->with('success', 'Data Berhasil Disimpan');

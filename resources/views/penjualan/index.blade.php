@@ -25,6 +25,7 @@
                                                     <th>Jenis Barang</th>
                                                     <th>Jumlah Barang</th>
                                                     <th>Harga Barang</th>
+                                                    <th>Diskon</th>
                                                     <th>Total Harga</th>
                                                 </tr>
                                             </thead>
@@ -37,6 +38,7 @@
                                                     <td>{{$penjualans->jenis_barang}}</td>
                                                     <td>{{$penjualans->jumlah_barang}}</td>
                                                     <td>{{$penjualans->harga_barang}}</td>
+                                                    <td>{{$penjualans->diskon}}</td>
                                                     <td>{{$penjualans->total_harga}}</td>
                                                 </tr>
                                                 @endforeach
